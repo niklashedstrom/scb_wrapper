@@ -1,0 +1,20 @@
+{
+  "name": "scb_wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niklashedstrom/scb_wrapper.git"
+  },
+  "keywords": [],
+  "author": "Niklas Hedström",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niklashedstrom/scb_wrapper/issues"
+  },
+  "homepage": "https://github.com/niklashedstrom/scb_wrapper#readme"
+}
