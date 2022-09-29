@@ -2,7 +2,7 @@
   "name": "scb_wrapper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "scb.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/niklashedstrom/scb_wrapper/issues"
   },
-  "homepage": "https://github.com/niklashedstrom/scb_wrapper#readme"
+  "homepage": "https://github.com/niklashedstrom/scb_wrapper#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
