@@ -28,13 +28,9 @@ class SCB {
      * @return {Object} a json formated object containing the information of the node of the current path.
      */
     async getInfo() {
-        const config = {
-            method: 'get',
-            url: this.#url + "/" + this.#paths.join("/")
-        }
-        let res = await axios(config).catch(function (error) {
+        let res = await axios.get(this.#url + this.#paths.join("/")).catch(function (error) {
             throw new Error(error.message)
-          });
+          })
           return res.data
     }
 
@@ -140,13 +136,15 @@ class SCB {
         let variables = await this.#getVariablesObject()
         for(let i = 0; i < parameters.length; i++ ){
             for(let j= 0; j < variables.length; j++){
-                if(Object.keys(parameters[i]) === variables[j]["code"]){
+                if(Object.keys(parameters[i])[0] === variables[j]["text"]){
                     let values = []
-                    Object.values(parameters[i]).forEach(element => {
-                        values.push(variables[j]["values"][variables[j]["valueTexts"].indexOf(element)])
-                    })
+                    let parameterValues = Object.values(parameters[i])[0]
+                    parameterValues.forEach(element => {
+                        values.push(variables[j]["values"][variables[j]["valueTexts"].indexOf(element)] )
+                    });
                     this.#query["query"].push(
-                            '{"code":"'+ variables[j]["code"] +'","selection":{"filter":"item", "values":"'+ values +'"}},'
+                            {"code": variables[j]["code"],
+                            "selection":{"filter":"item","values": values}}
                     )
                 }
             }
@@ -193,17 +191,12 @@ class SCB {
      * @return {Object} a json formated object containing the information for the currently set query.
      */
     async getData(){
-        const config = {
-            method: 'post',
-            url: this.#url + "/" + this.#paths.join("/"),
-            json: this.#query
-        }
-        let res = await axios(config).catch(function (error) {
+        const json = JSON.stringify(this.#query);
+        let res = await axios.post(this.#url + this.#paths.join("/"), json).catch(function (error) {
             throw new Error(error.message)
           })
         return res.data
     }
-
 }
 
 module.exports = {
