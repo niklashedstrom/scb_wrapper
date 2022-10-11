@@ -197,6 +197,68 @@ class SCB {
           })
         return res.data
     }
+
+
+    /**
+    * Makes a request to the SCB API from the select paramters.
+    * @param {Object} parameters a json formated object with the variable name as key and the range as values.
+    * @param {Boolean} readable converts the response to a more human readable format if true.
+    * @param {String} format what format to use
+    */
+    async getDataFromQuery(parameters, readable, format){
+        let valueStructure = []
+        format !== undefined ? this.setQueryResponseFormat(format) : "";
+        this.clearQuery()
+        let variables = await this.#getVariablesObject()
+        for(let i = 0; i < parameters.length; i++ ){
+            for(let j= 0; j < variables.length; j++){
+                if(Object.keys(parameters[i])[0] === variables[j]["text"]){
+                    let values = []
+                    let parameterValues = Object.values(parameters[i])[0]
+                    let title = {}
+                    title[Object.keys(parameters[i])[0]] = []
+                    parameterValues.forEach(element => {
+                        let valuePair = {}
+                        valuePair[variables[j]["values"][variables[j]["valueTexts"].indexOf(element)]] = element
+                        title[Object.keys(parameters[i])[0]].push(valuePair)
+                        values.push(variables[j]["values"][variables[j]["valueTexts"].indexOf(element)] )
+                    });
+                    valueStructure.push(title)
+                    this.#query["query"].push(
+                            {"code": variables[j]["code"],
+                            "selection":{"filter":"item","values": values}}
+                    )
+                }
+            }
+        }
+        const json = JSON.stringify(this.#query);
+        let res = await axios.post(this.#url + this.#paths.join("/"), json).catch(function (error) {
+            throw new Error(error.message)
+          })
+        if(readable){
+            res.data["data"] = this.#getReadableData(res.data, valueStructure)
+        }
+        return res.data
+    }
+
+    #getReadableData(data, converter){
+        let order = []
+        data["columns"].forEach(element => {
+            order.push(element["text"])
+        })
+        let keys = []
+        data["data"].forEach(i => {
+            let entry = {}
+            let key = []
+            for(let j = 0; j < i["key"].length; j++){
+                key.push(converter.filter(e => e[order[j]] !== undefined)[0][order[j]].filter(s => s[i["key"][j]] !== undefined)[0][i["key"][j]])
+            }
+            entry["key"] = key
+            entry["values"] = i["values"]
+            keys.push(entry)
+        })
+        return keys
+    }
 }
 
 module.exports = {
