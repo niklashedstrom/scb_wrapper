@@ -1,7 +1,7 @@
 {
-  "name": "scb_wrapper",
+  "name": "@niklashedstrom/scb_wrapper",
   "version": "1.0.0",
-  "description": "",
+  "description": "A wrapper for the SCB api",
   "main": "scb.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
