@@ -200,7 +200,7 @@ class SCB {
 
 
     /**
-    * Makes a request to the SCB API from the select paramters.
+    * Makes a request to the SCB API from the selected paramters.
     * @param {Object} parameters a json formated object with the variable name as key and the range as values.
     * @param {Boolean} readable converts the response to a more human readable format if true.
     * @param {String} format what format to use
