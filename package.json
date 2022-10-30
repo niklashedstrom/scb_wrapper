@@ -1,5 +1,5 @@
 {
-  "name": "@niklashedstrom/scb_wrapper",
+  "name": "scb_wrapper",
   "version": "1.0.1",
   "description": "A wrapper for the SCB api",
   "main": "scb.js",
