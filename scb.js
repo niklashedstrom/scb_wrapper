@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('axios')
 
 class SCB {
     #paths
@@ -6,7 +6,6 @@ class SCB {
     #query
     #format
     #validFormats = ["px", "csv", "json", "xlsx", "json-stat", "json-stat2", "sdmx"]
-
 
     /**
      * Constructor for the SCB class.
@@ -18,13 +17,13 @@ class SCB {
             throw new Error('SCB needs a language string paramter to be instantiated');
           }
         this.#paths = path.slice(1)
-        this.#url = "http://api.scb.se/OV0104/v1/doris/" + languageCode + "/ssd/"
+        this.#url = "https://api.scb.se/OV0104/v1/doris/" + languageCode + "/ssd/"
         this.#format = "json"
         this.#query = {"query": [], "response": {"format": this.#format}}
     }
 
     /**
-     * Makes a request to the SCB API With the current path.
+     * Makes a request to the SCB API with the current path.
      * @return {Object} a json formated object containing the information of the node of the current path.
      */
     async getInfo() {
@@ -179,7 +178,7 @@ class SCB {
     }
 
     /**
-    * Returns all the valid formats for the.
+    * Returns all the valid formats for the querys responese format.
     * @return {List} a list of all the valid formats.
     */
     getValidFormats(){
@@ -187,7 +186,7 @@ class SCB {
     }
 
     /**
-     * Makes a request to the SCB API With the current query.
+     * Makes a request to the SCB API with the current query.
      * @return {Object} a json formated object containing the information for the currently set query.
      */
     async getData(){
