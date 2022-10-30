@@ -121,7 +121,7 @@ class SCB {
         let variables = await this.#getVariablesObject()
         for(let i = 0; i < variables.length; i++ ){
             if(variables[i]["text"] === text){
-                return variables[i]["values"]
+                return variables[i]["valueTexts"]
             }
         }
     }
